@@ -5,14 +5,7 @@ class Container {
         this.#products = []
     }
 
-    save(id,title,price,thumbnail) {
-        const product = {
-            id:id,
-            title: title,
-            price: price,
-            thumbnail: thumbnail
-        };
-
+    save(product) {
         this.#products.push(product);
     }
 
@@ -39,9 +32,28 @@ class Container {
 
 const products = new Container();
 
-products.save(1,'Product 1',100,'url1');
-products.save(2,'Product 2',500,'url2');
-products.save(3,'Product 3',300,'url2');
+const product1 = {
+    id:1,
+    title:'Product 1',
+    price:100,
+    thumnail:'url 1'
+}
+const product2 = {
+    id:2,
+    title:'Product 2',
+    price:400,
+    thumnail:'url 2'
+}
+const product3 = {
+    id:3,
+    title:'Product 3',
+    price:200,
+    thumnail:'url 3'
+}
+
+products.save(product1);
+products.save(product2);
+products.save(product3);
 
 console.log(products.getById(2));
 
