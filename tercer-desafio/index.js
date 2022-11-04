@@ -13,11 +13,15 @@ class ContainerFile {
 
   async save(product) {
     try {
-      this.#products.push(product);
+      const readFile = JSON.parse(
+        await fs.promises.readFile(this.#rute, "utf-8")
+      );
+      this.#products.push(product)
       await fs.promises.writeFile(
         this.#rute,
         JSON.stringify(this.#products, null, 2)
       );
+      return readFile
     } catch (error) {
       throw new Error("No product save: " + error);
     }
@@ -41,10 +45,8 @@ class ContainerFile {
         await fs.promises.readFile(this.#rute, "utf-8")
       );
       const productsLength = readFile.length;
-      const randomNumber =  Math.floor((Math.random() * productsLength) + 1);
-      console.log(randomNumber);
-      const productFound =  readFile.find((product) => product.id == randomNumber);
-      console.log(productFound);
+      const randomNumber =  Math.floor(Math.random() * productsLength);
+      const productFound =  readFile[randomNumber];
       return productFound;
     } catch (error) {
       console.log('error')
@@ -64,7 +66,8 @@ class ContainerFile {
 
   async deleteById(id) {
     try {
-      const productsFilter = this.#products.filter(
+      const products = await this.getAll()
+      const productsFilter = products.filter(
         (product) => product.id != id
       );
       await fs.promises.writeFile(
@@ -111,6 +114,7 @@ const product3 = {
   thumnail: "url 3",
 };
 
+
 const containerProducts = new ContainerFile("./products.txt");
 
 
@@ -129,6 +133,7 @@ servidor.get("/products", async (peticion, respuesta) => {
 servidor.get("/productRandom", async (peticion, respuesta) => {
     respuesta.send(await containerProducts.getRandom());
 });
+
 
 function conectar(puerto = 0) {
   return new Promise((resolve, reject) => {
