@@ -1,24 +1,24 @@
 const { randomUUID } = require('crypto');
 
-let products  = require('../products/products.js');
-products.map(product => {
-    product.id = randomUUID()
-})
+const  Container  = require('../class/container.js');
+const container =  new Container("./products.txt");
 
-function controllerGetProducts(req, res) {
+async function controllerGetProducts(req, res) {
+    let products =  await container.getAll();
     res.json( products );
 } 
 
-function controllerPostProducts(req, res) {
+async function controllerPostProducts(req, res) {
     const newProduct = req.body;
     newProduct.id  = randomUUID();
-    products.push(newProduct);
+    await container.save(newProduct)
     res.status(201);
     res.json(newProduct);
+
 } 
 
-function controllerGetProductById({ params: { id } }, res) {
-    const found = products.find(product => product.id === id);
+async function controllerGetProductById({ params: { id } }, res) {
+    const found = await container.getById(id);
     if (!found) {
         res.status(404);
         res.json({ error: `Product with id ${id} not found`})
@@ -28,7 +28,8 @@ function controllerGetProductById({ params: { id } }, res) {
     }   
 }
 
-function controllerPutProductsById({body, params: { id }, res}){
+async function controllerPutProductsById({body, params: { id }, res}){
+    const products = await container.getAll()
     const foundIndex = products.findIndex(product => product.id === id);
     if(foundIndex === -1) {
         res.status(404);
@@ -36,21 +37,16 @@ function controllerPutProductsById({body, params: { id }, res}){
     }
     else{
         const product = body;
-        products[foundIndex] = product;
+        products[foundIndex] = await container.deleteById(id);
+        await container.save(product)
         res.json(product);
     }
 }
 
-function controllerDeleteProductsById({ params: { id } }, res){
-    const foundIndex = products.findIndex(product => product.id === id);
-    if(foundIndex === -1) {
-        res.status(404);
-        res.json({ error: `Product with id ${id} not found` })
-    }
-    else{
-        const deleteProduct = products.splice(foundIndex,1);
-        res.json(deleteProduct);
-    }
+async function controllerDeleteProductsById({ params: { id } }, res){
+    const deleteProduct = await container.deleteById(id);
+    console.log(deleteProduct)
+    res.json(deleteProduct);
 }
 
 exports.controllerGetProducts = controllerGetProducts;
