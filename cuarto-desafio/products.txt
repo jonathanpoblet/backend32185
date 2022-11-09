@@ -1,14 +1,26 @@
 [
   {
-    "title": "new product 6",
-    "price": 4110,
-    "thumbnail": "new product 6",
-    "id": "8c0d4452-07be-4446-81ce-91071632e7b0"
+    "title": "product 1",
+    "price": 200,
+    "thumbnail": "product 1",
+    "id": "dfacdbbe-e36f-468f-8370-8138ca6e83c2"
   },
   {
-    "title": "new product 10",
-    "price": 4110,
-    "thumbnail": "new product 10",
-    "id": "908e9c5c-216b-427f-a1b2-d3811053ead5"
+    "title": "product 2",
+    "price": 400,
+    "thumbnail": "product 2",
+    "id": "bfe1602b-97fd-4eb2-a0cd-a8d80d65f180"
+  },
+  {
+    "title": "product 3",
+    "price": 300,
+    "thumbnail": "product 3",
+    "id": "1de94ad0-940f-4f84-86f2-155bcd85fcda"
+  },
+  {
+    "title": "product 4",
+    "price": 100,
+    "thumbnail": "product 4",
+    "id": "a649813b-b907-4183-811b-d9c51b0edf65"
   }
 ]

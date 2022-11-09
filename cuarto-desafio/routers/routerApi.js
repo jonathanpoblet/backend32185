@@ -8,10 +8,10 @@ const { controllerGetProducts,
 
 const routerApi = express.Router();
 
-routerApi.get('/api/products', controllerGetProducts);
-routerApi.get('/api/products/:id', controllerGetProductById);
-routerApi.post('/api/products', controllerPostProducts);
-routerApi.put('/api/products/:id', controllerPutProductsById);
-routerApi.delete('/api/products/:id', controllerDeleteProductsById);
+routerApi.get('/', controllerGetProducts);
+routerApi.get('/:id', controllerGetProductById);
+routerApi.post('/', controllerPostProducts);
+routerApi.put('/:id', controllerPutProductsById);
+routerApi.delete('/:id', controllerDeleteProductsById);
 
 exports.routerApi = routerApi;

@@ -56,6 +56,22 @@ class Container {
     }
   }
 
+  async changeById(id,body,product) {
+    try {
+      const readFile = JSON.parse(
+        await fs.promises.readFile(this.#file, "utf-8")
+      );
+      const foundIndex = await readFile.findIndex(product => product.id === id);
+      readFile[foundIndex] = {...product,...body};
+      readFile[foundIndex].id = id;
+      const productUpdate = readFile[foundIndex]
+      fs.writeFileSync(this.#file, JSON.stringify(readFile,null,2));  
+      return productUpdate;
+    } catch (error) {
+      throw new Error("No product found: " + error);
+    }
+  }
+
   async deleteById(id) {
     try {
       const products = await this.getAll()

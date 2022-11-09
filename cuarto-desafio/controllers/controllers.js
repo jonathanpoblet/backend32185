@@ -21,7 +21,7 @@ async function controllerGetProductById({ params: { id } }, res) {
     const found = await container.getById(id);
     if (!found) {
         res.status(404);
-        res.json({ error: `Product with id ${id} not found`})
+        res.json({ error: `Product with id ${id} not found`});
     }
     else{
         res.json(found)
@@ -29,24 +29,27 @@ async function controllerGetProductById({ params: { id } }, res) {
 }
 
 async function controllerPutProductsById({body, params: { id }, res}){
-    const products = await container.getAll()
-    const foundIndex = products.findIndex(product => product.id === id);
-    if(foundIndex === -1) {
+    const product = await container.getById(id);
+    const newProduct = await container.changeById(id,body,product);
+    if(!product) {
         res.status(404);
-        res.json({ error: `Product with id ${id} not found` })
+        res.json({ error: `Product with id ${id} not found`});
     }
     else{
-        const product = body;
-        products[foundIndex] = await container.deleteById(id);
-        await container.save(product)
-        res.json(product);
+        res.json(newProduct);
     }
+
 }
 
 async function controllerDeleteProductsById({ params: { id } }, res){
-    const deleteProduct = await container.deleteById(id);
-    console.log(deleteProduct)
-    res.json(deleteProduct);
+    let deleteProduct = await container.deleteById(id);
+    if(!deleteProduct) {
+        res.status(404);
+        res.json({ error: `Product with id ${id} not found`})
+    }
+    else{
+        res.json(deleteProduct);
+    }
 }
 
 exports.controllerGetProducts = controllerGetProducts;
