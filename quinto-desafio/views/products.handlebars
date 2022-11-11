@@ -1,0 +1,29 @@
+<h2 style='color:blue;'>Products</h2>
+<a style='text-decoration:none; color:green;' href='/'>Add Product</a>
+
+{{#if productsExist}}
+<div class='table-responsive'>
+    <table class='table table-dark'>
+        <tr style='color: yellow;'>
+            <th>Title</th>
+            <th>Price</th>
+            <th>Image</th>
+        </tr>
+        {{#each products}}
+        <tr>
+            <td>
+                {{this.title}}
+            </td>
+            <td>
+                {{this.price}}
+            </td>
+            <td>
+                <img style='width:40px;' src='{{this.thumbnail}}' alt='{{this.title}}'/>
+            </td>
+        </tr>
+        {{/each}}
+    </table>
+</div>
+{{else}}
+<h3 class='alert alert-danger'>No products found</h3>
+{{/if}}
