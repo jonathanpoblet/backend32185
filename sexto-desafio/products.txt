@@ -1,0 +1,20 @@
+[
+  {
+    "title": "Calculator",
+    "price": "100",
+    "thumbnail": "https://cdn3.iconfinder.com/data/icons/education-209/64/calculator-math-tool-school-512.png",
+    "id": "1790ef76-f51d-4146-88a7-29185e55ca3e"
+  },
+  {
+    "title": "Ruler",
+    "price": "700",
+    "thumbnail": "https://cdn3.iconfinder.com/data/icons/education-209/64/ruler-triangle-stationary-school-512.png",
+    "id": "637118e9-40ca-462f-a908-bc953de94f05"
+  },
+  {
+    "title": "Clock",
+    "price": "560",
+    "thumbnail": "https://cdn3.iconfinder.com/data/icons/education-209/64/clock-stopwatch-timer-time-512.png",
+    "id": "3addcd2d-4cf5-4f98-a7ee-f070262dfdff"
+  }
+]
