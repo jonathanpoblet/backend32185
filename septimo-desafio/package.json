@@ -1,0 +1,19 @@
+{
+  "type": "module",
+  "name": "proyect1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "knex": "^2.3.0",
+    "mysql2": "^2.3.3",
+    "socket.io": "^4.1.3"
+  }
+}
