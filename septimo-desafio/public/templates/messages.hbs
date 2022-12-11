@@ -1,3 +1,7 @@
-{{#each messages}}
-    <p>{{this.email}} {{this.date}} {{this.message}}</p>
-{{/each}}
+{{#if messages.length}}
+    {{#each messages}}
+        <p>{{this.email}} {{this.date}} {{this.message}}</p>
+    {{/each}}
+{{else}}
+    <h3 class='alert alert-danger'>No Messages found</h3>
+{{/if}}
