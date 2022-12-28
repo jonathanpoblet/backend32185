@@ -1,0 +1,12 @@
+{{#if denormalizedMessages.length}}
+    {{#each denormalizedMessages}}
+        <div style='display:flex; align-items:center'>
+            <p style='color:blue'>{{this.author.email}}</p>
+            <p style='color:red'>[{{this.author.date}}]</p>
+            <p style='color:green'>:{{this.text}}</p>
+            <img src='{{this.author.avatar}}' alt={{this.author.name}} style='width:70px; border-radius:50%' />
+        </div>
+    {{/each}}
+{{else}}
+    <h3 class='alert alert-danger'>No Messages found</h3>
+{{/if}}

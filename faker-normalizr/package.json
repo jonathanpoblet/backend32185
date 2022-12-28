@@ -1,0 +1,22 @@
+{
+  "type": "module",
+  "name": "proyect1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@faker-js/faker": "^7.6.0",
+    "express": "^4.17.1",
+    "knex": "^2.3.0",
+    "mongodb": "^4.13.0",
+    "mysql2": "^2.3.3",
+    "normalizr": "^3.6.2",
+    "socket.io": "^4.1.3"
+  }
+}
