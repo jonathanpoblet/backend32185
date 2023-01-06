@@ -22,19 +22,11 @@ const httpServer = http.createServer(app);
 const io = new Server(httpServer);
 
 //Normalization schema
-const authorSchema = new schema.Entity('author',{},{idAttribute:'email'});
-const textSchema = new schema.Entity('text');
-
+const authorSchema = new schema.Entity('authors',{},{idAttribute:'email'});
+const textSchema = new schema.Entity('messages', {author: authorSchema} , {idAttribute:'_id'});
 const messageSchema = new schema.Array( 
-    {
-        author: authorSchema,
-        text: textSchema
-    }
+    textSchema
 );
-
-function print(objeto) {
-    console.log(util.inspect(objeto, false, 12, true))
-}
 
 //? Handlebars para prueba, estableci como predeterminada la carpeta views dentro de test. Para que toda la prueba este dentro de test
 app.engine('handlebars', engine())
@@ -63,10 +55,7 @@ io.on('connection', async(socket) => {
     })
     
     const messages = await containerMessages.getAll();
-    console.log(JSON.stringify(messages).length)
     const normalizedData = normalize(messages,messageSchema);
-    //print(normalizedData)
-    //console.log(JSON.stringify(normalizedData).length)
     socket.emit('messages',normalizedData)
 
     socket.on('newMessage', async(message) => {
@@ -74,7 +63,6 @@ io.on('connection', async(socket) => {
         await containerMessages.save(newMessage);
         const messages = await containerMessages.getAll();
         const normalizedData = normalize(messages,messageSchema)
-        print(normalizedData)
         io.sockets.emit('messages', normalizedData);
     })
 });

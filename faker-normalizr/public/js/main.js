@@ -53,14 +53,11 @@ async function eventHandlerProducts(products) {
     document.getElementById('products').innerHTML = html
 }
 
-const authorSchema = new normalizr.schema.Entity('author',{},{idAttribute:'email'});
-const textSchema = new normalizr.schema.Entity('text');
+const authorSchema = new normalizr.schema.Entity('authors',{},{idAttribute:'email'});
+const textSchema = new normalizr.schema.Entity('messages', {author: authorSchema} , {idAttribute:'_id'});
 
 const messageSchema = new normalizr.schema.Array( 
-    {
-        author: authorSchema,
-        text: textSchema
-    }
+    textSchema
 );
 
 function print(objeto) {
@@ -69,6 +66,13 @@ function print(objeto) {
 
 async function eventHandlerMessages(messages) {
     const denormalizedMessages = normalizr.denormalize(messages.result, messageSchema,messages.entities);
+    
+    const normalizedMessagesLength = (JSON.stringify(messages).length);
+
+    const denormalizedMessagesLength = (JSON.stringify(denormalizedMessages).length);
+    console.log(`Denormalized message: ${denormalizedMessagesLength}`);
+    console.log(`Normalized message: ${normalizedMessagesLength}`);
+    console.log(`Percentage : ${((normalizedMessagesLength * 100) / denormalizedMessagesLength) - 100} %`);
 
     const template = await fetch('templates/messages.hbs')
 
